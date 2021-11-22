@@ -112,7 +112,7 @@
       let secondNum = document.querySelector('#second-num').value;
       let operator = document.querySelector('#operator').value;
       try{
-        if (typeof Number(firstNum) != "number"){
+        if (isNaN(firstNum)){
           throw new InputError("Input 1 should be a number");
         }
       }catch(error){
@@ -122,7 +122,7 @@
       }
 
       try{
-        if (typeof Number(secondNum) != "number"){
+        if (isNaN(secondNum)){
           throw new Error("Input 2 should be a number");
         }
       }catch(error){
