@@ -87,6 +87,15 @@
     </section>
   </main>
 
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script>
+    window.TrackJS && TrackJS.install({ 
+      token: "5c13ad1ff3b741789a3028ed1bfae1d7"
+      // for more configuration options, see https://docs.trackjs.com
+    });
+  </script>
+                        
+
   <script>
     class InputError extends Error {
       constructor(message) {
@@ -103,8 +112,18 @@
       let secondNum = document.querySelector('#second-num').value;
       let operator = document.querySelector('#operator').value;
       try{
-        if ((typeof firtNum) != 'number' || (typeof secondNum) != 'number'){
-          throw new InputError("Input should be numbers");
+        if ((typeof firtNum) != 'number'){
+          throw new InputError("Input 1 should be a number");
+        }
+      }catch(error){
+        alert(error.message);
+      }finally{
+        console.log("finally");
+      }
+
+      try{
+        if ((typeof secondNum) != 'number'){
+          throw new Error("Input 2 should be a number");
         }
       }catch(error){
         alert(error.message);
@@ -135,7 +154,7 @@
     });
 
     errorBtns[4].addEventListener("click", () =>{
-      console.assert("console assert");
+      console.assert(false, "console assert");
     });
 
     errorBtns[5].addEventListener("click", () =>{
@@ -176,12 +195,21 @@
     });
 
     errorBtns[13].addEventListener("click", () =>{
-      const first = () => { second(); };
-      const second = () => { console.trace(); };
+      function first(){
+        function second(){
+          console.trace();
+        }
+        second();
+      }
+      first();
     });
 
     errorBtns[14].addEventListener("click", () =>{
-      throw new Error("global error");
+      variableNotDefined;
+    });
+
+    window.addEventListener('error', () => {
+      console.log('find a global error');
     });
   </script>
 </body>
